@@ -2,6 +2,9 @@ package cz.zajdlik.film_review_app.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Film {
 
@@ -12,6 +15,10 @@ public class Film {
     private String title;
     private int year;
     private String description;
+
+    @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
+
 
     // Gettery a Settery
     public Long getId() {
@@ -45,4 +52,13 @@ public class Film {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
 }
